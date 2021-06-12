@@ -7,26 +7,17 @@ Basic inline bot example. Applies different text transformations.
 Press Ctrl-C on the command line or send a signal to the process to stop the
 bot.
 """
-import uuid
-from telegram.inline.inputmessagecontent import InputMessageContent
-from telegram.inline.inputtextmessagecontent import InputTextMessageContent
-
-from telegram.replymarkup import ReplyMarkup
-from dle_rae_bot.drae import get_definitions
-import sys
 import logging
 import os
-import re
-from time import time
-from typing import List
+import sys
 from uuid import uuid4
 
-import requests
-from bs4 import BeautifulSoup
-from telegram import InlineQueryResultGif, Update, InlineQueryResultArticle, ParseMode
+from telegram import InlineQueryResultArticle, Update
 from telegram.ext import (CallbackContext, CommandHandler, InlineQueryHandler,
                           Updater)
+from telegram.inline.inputtextmessagecontent import InputTextMessageContent
 
+from .rae import get_definitions
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
