@@ -1,20 +1,25 @@
 import unittest
 
 from bs4 import BeautifulSoup
-from dle_rae_bot.drae import (WordDefinition, get_definitions,
-                              get_unwrapped_content)
+from dle_rae_bot.model import WordDefinition
+from dle_rae_bot.repository import HttpDefinitionRepository
+from dle_rae_bot.utils import get_unwrapped_content
 
 
 class TestGetDefinitions(unittest.TestCase):
 
+    def setUp(self) -> None:
+        super().setUp()
+        self.repository = HttpDefinitionRepository()
+
     def test_when_empty_word_then_none_result(self):
-        self.assertIsNone(get_definitions())
+        self.assertIsNone(self.repository.get_definitions())
 
     def test_when_word_with_spaces_then_none_result(self):
-        self.assertIsNone(get_definitions())
+        self.assertIsNone(self.repository.get_definitions())
 
     def test_when_unknown_then_none_result(self):
-        self.assertIsNone(get_definitions())
+        self.assertIsNone(self.repository.get_definitions())
 
     def test_when_word_then_word_definition_result(self):
         expected = WordDefinition(
@@ -25,7 +30,7 @@ class TestGetDefinitions(unittest.TestCase):
                 '2. m. Catálogo de noticias o datos de un mismo género, ordenado alfabéticamente. Diccionario bibliográfico, biográfico, geográfico.'
             ]
         )
-        actual = get_definitions('diccionario')
+        actual = self.repository.get_definitions('diccionario')
         self.assertEquals(expected, actual)
 
     def test_when_word_has_redirect_then_word_definition_result(self):
@@ -37,7 +42,7 @@ class TestGetDefinitions(unittest.TestCase):
                 '2. m. y f. Mil. Militar con cualquiera de los grados de comandante, teniente coronel y coronel en el Ejército, o los de capitán de corbeta, capitán de fragata y capitán de navío en la Armada.',
             ]
         )
-        actual = get_definitions('jefa')
+        actual = self.repository.get_definitions('jefa')
         self.assertEquals(expected, actual)
 
 
