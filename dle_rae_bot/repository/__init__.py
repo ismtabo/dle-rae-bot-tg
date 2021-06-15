@@ -1,1 +1,3 @@
-from .rae_definition import HttpDefinitionRepository
+"""Module of application repositories"""
+
+from .definition import *

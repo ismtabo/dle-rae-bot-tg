@@ -1,1 +1,3 @@
-from .html import get_unwrapped_content
+"""Module for application utilities."""
+
+from .html import *

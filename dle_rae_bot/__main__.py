@@ -11,9 +11,9 @@ import logging
 import os
 import sys
 
-from dle_rae_bot import controller, repository
 from dle_rae_bot.controller import TelegramDefinitionController
 from dle_rae_bot.repository import HttpDefinitionRepository
+from dle_rae_bot.repository.definition import DefinitionRepository
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
@@ -29,6 +29,6 @@ if __name__ == '__main__':
     # Enable logger
     logging.basicConfig(level=log_level)
 
-    repository = HttpDefinitionRepository()
-    controller = TelegramDefinitionController(token, repository)
-    controller.start()
+    repo: DefinitionRepository = HttpDefinitionRepository()
+    ctrl = TelegramDefinitionController(token, repo)
+    ctrl.run()

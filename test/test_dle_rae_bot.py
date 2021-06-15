@@ -1,7 +1,7 @@
 import unittest
 
 from bs4 import BeautifulSoup
-from dle_rae_bot.model import WordDefinition
+from dle_rae_bot.model import Word
 from dle_rae_bot.repository import HttpDefinitionRepository
 from dle_rae_bot.utils import get_unwrapped_content
 
@@ -22,7 +22,7 @@ class TestGetDefinitions(unittest.TestCase):
         self.assertIsNone(self.repository.get_definitions())
 
     def test_when_word_then_word_definition_result(self):
-        expected = WordDefinition(
+        expected = Word(
             word='diccionario',
             description='Del b. lat. dictionarium.',
             definitions=[
@@ -31,10 +31,10 @@ class TestGetDefinitions(unittest.TestCase):
             ]
         )
         actual = self.repository.get_definitions('diccionario')
-        self.assertEquals(expected, actual)
+        self.assertEqual(expected, actual)
 
     def test_when_word_has_redirect_then_word_definition_result(self):
-        expected = WordDefinition(
+        expected = Word(
             word='jefe, fa',
             description='Del fr. chef.',
             definitions=[
@@ -43,7 +43,7 @@ class TestGetDefinitions(unittest.TestCase):
             ]
         )
         actual = self.repository.get_definitions('jefa')
-        self.assertEquals(expected, actual)
+        self.assertEqual(expected, actual)
 
 
 class TestGetUnwrappedContent(unittest.TestCase):

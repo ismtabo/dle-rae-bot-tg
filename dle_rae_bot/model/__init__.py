@@ -1,1 +1,3 @@
-from .definition import WordDefinition
+"""Module of applications models."""
+
+from .definition import *
